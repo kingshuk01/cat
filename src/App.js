@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>CATS<FaCat></FaCat></h1>
+      <h1>CAT IMAGE<FaCat></FaCat></h1>
       <div className="cat-box">
         <div className="next-btn left">
           {loading?(<></>):(<FaAngleLeft onClick={cat}></FaAngleLeft>)}
