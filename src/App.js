@@ -1,23 +1,43 @@
-import logo from './logo.svg';
+
 import './App.css';
+import axios from 'axios'
+import { useState } from 'react'
+import { FaAngleRight, FaCat, FaAngleLeft } from "react-icons/fa";
 
 function App() {
+
+  const [img, setimg] = useState("")
+  const [loading, setloading] = useState(false)
+
+  const cat = () => {
+    setloading(true)
+    axios.get(`  https://api.thecatapi.com/v1/images/search`)
+
+      .then(res => {
+        console.log(res);
+        setimg(res.data[0].url)
+        setloading(false)
+      })
+
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>CATS<FaCat></FaCat></h1>
+      <div className="cat-box">
+        <div className="next-btn left">
+          {loading?(<></>):(<FaAngleLeft onClick={cat}></FaAngleLeft>)}
+        </div>
+        {loading? (<h1>Loading</h1>):(<img width={400} height={400} src={img}></img>)}
+        <div className="next-btn right">
+          {loading?(<></>):(<FaAngleRight onClick={cat}></FaAngleRight>)}
+        </div>
+
+      </div>
+
     </div>
   );
 }
